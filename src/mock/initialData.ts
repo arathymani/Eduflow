@@ -1,0 +1,585 @@
+import {
+  StudentAvatar,
+  StudentProfile,
+  DiagnosticQuestion,
+  SubjectScore,
+  KnowledgeGap,
+  LearningPathNode,
+  LearningLesson,
+  AiChatMessage,
+  AdaptiveQuizQuestion,
+  BadgeItem,
+  RecommendationCard,
+  CareerMatch,
+  EntranceExam,
+  ScholarshipTier,
+  SubscriptionPlan
+} from '../types';
+
+export const AVATARS: StudentAvatar[] = [
+  { id: 'av-1', name: 'AstroBot', emoji: '🚀', badge: 'Cosmic Explorer', bgColor: 'bg-indigo-600' },
+  { id: 'av-2', name: 'Sparky', emoji: '⚡', badge: 'Fast Thinker', bgColor: 'bg-amber-600' },
+  { id: 'av-3', name: 'Nova', emoji: '🌟', badge: 'Deep Analyzer', bgColor: 'bg-violet-600' },
+  { id: 'av-4', name: 'Byte', emoji: '🤖', badge: 'Tech Wizard', bgColor: 'bg-emerald-600' },
+  { id: 'av-5', name: 'Leo', emoji: '🦁', badge: 'Fearless Leader', bgColor: 'bg-rose-600' },
+];
+
+export const INITIAL_PROFILE: StudentProfile = {
+  name: 'Aryan Sharma',
+  grade: 'Class 11',
+  stream: 'Science (PCM)',
+  avatar: AVATARS[0],
+  dreamCareer: 'AI & Robotics Engineer',
+  interests: ['Artificial Intelligence', 'Space & Astronomy', 'Competitive Math', 'Game Development'],
+  xp: 1450,
+  streakDays: 7,
+  level: 4,
+  overallScore: 62, // Baseline diagnostic score
+};
+
+export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = [
+  {
+    id: 'dq-1',
+    subject: 'Mathematics',
+    difficulty: 'Medium',
+    question: 'If the roots of the quadratic equation x² - 7x + 12 = 0 are α and β, what is the value of α² + β²?',
+    options: ['25', '49', '37', '14'],
+    correctIndex: 0,
+    explanation: 'α + β = 7 and αβ = 12. Using α² + β² = (α + β)² - 2αβ = 49 - 24 = 25.',
+  },
+  {
+    id: 'dq-2',
+    subject: 'Physics',
+    difficulty: 'Medium',
+    question: 'A ball is projected horizontally with velocity 20 m/s from a height of 80 m. How long does it take to hit the ground? (g = 10 m/s²)',
+    options: ['2.0 s', '4.0 s', '8.0 s', '16.0 s'],
+    correctIndex: 1,
+    explanation: 'Vertical motion: h = 0.5 * g * t² => 80 = 5t² => t² = 16 => t = 4 s.',
+  },
+  {
+    id: 'dq-3',
+    subject: 'Logical Reasoning',
+    difficulty: 'Hard',
+    question: 'In a code, VECTOR is written as WFDUPU. What will MATRIX be written as?',
+    options: ['NBUJSY', 'NBUSJY', 'NBVJSY', 'MCUJSY'],
+    correctIndex: 0,
+    explanation: 'Each letter is shifted +1, +0, +1, +0 pattern or +1 for consonants: M->N, A->B, T->U, R->S, I->J, X->Y.',
+  },
+  {
+    id: 'dq-4',
+    subject: 'Biology',
+    difficulty: 'Easy',
+    question: 'Which organelle is responsible for generating cellular ATP during aerobic respiration?',
+    options: ['Golgi Apparatus', 'Ribosome', 'Mitochondria', 'Lysosome'],
+    correctIndex: 2,
+    explanation: 'Mitochondria are often referred to as the powerhouse of the cell because they synthesize ATP.',
+  },
+];
+
+export const INITIAL_SUBJECT_SCORES: SubjectScore[] = [
+  {
+    subject: 'Mathematics',
+    score: 88,
+    totalQuestions: 15,
+    correctQuestions: 13,
+    percentile: 94,
+    speedSecsAvg: 42,
+    status: 'Strong',
+    icon: '📐',
+    color: 'from-blue-500 to-indigo-600',
+  },
+  {
+    subject: 'Physics',
+    score: 82,
+    totalQuestions: 15,
+    correctQuestions: 12,
+    percentile: 89,
+    speedSecsAvg: 55,
+    status: 'Strong',
+    icon: '⚡',
+    color: 'from-violet-500 to-purple-600',
+  },
+  {
+    subject: 'Logical Reasoning',
+    score: 91,
+    totalQuestions: 15,
+    correctQuestions: 14,
+    percentile: 96,
+    speedSecsAvg: 28,
+    status: 'Strong',
+    icon: '🧠',
+    color: 'from-emerald-500 to-teal-600',
+  },
+  {
+    subject: 'Biology',
+    score: 54,
+    totalQuestions: 15,
+    correctQuestions: 8,
+    percentile: 52,
+    speedSecsAvg: 70,
+    status: 'Needs Attention',
+    icon: '🧬',
+    color: 'from-rose-500 to-pink-600',
+  },
+];
+
+export const KNOWLEDGE_GAPS: KnowledgeGap[] = [
+  {
+    id: 'kg-1',
+    subject: 'Mathematics',
+    targetConcept: 'Quadratic Equations & Complex Roots',
+    targetMastery: 58,
+    prerequisiteConcept: 'Algebraic Factorization & Splitting Middle Term',
+    prerequisiteMastery: 42,
+    severity: 'critical',
+    rootCause: 'Difficulty isolating roots stems from incomplete prerequisite intuition of factoring trinomials.',
+    bridgeRemedy: 'Complete 10-minute micro-module on Quadratic Factorization shortcuts.',
+    estimatedFixTime: '15 mins',
+  },
+  {
+    id: 'kg-2',
+    subject: 'Physics',
+    targetConcept: '2D Projectile Motion under Gravity',
+    targetMastery: 65,
+    prerequisiteConcept: 'Vector Decomposition (Orthogonal Components)',
+    prerequisiteMastery: 51,
+    severity: 'moderate',
+    rootCause: 'Mixing horizontal velocity with gravitational acceleration vectors.',
+    bridgeRemedy: 'Interactive Vector Split simulator with instant trajectory visualization.',
+    estimatedFixTime: '12 mins',
+  },
+  {
+    id: 'kg-3',
+    subject: 'Biology',
+    targetConcept: 'Cellular Respiration & Krebs Cycle',
+    targetMastery: 50,
+    prerequisiteConcept: 'Glycolysis & Enzyme Activation Energy',
+    prerequisiteMastery: 48,
+    severity: 'critical',
+    rootCause: 'Struggling to track carbon atom transitions between pyruvate and acetyl-CoA.',
+    bridgeRemedy: 'Visual step-by-step metabolic cycle builder with memory anchors.',
+    estimatedFixTime: '20 mins',
+  },
+];
+
+export const LEARNING_PATH_NODES: LearningPathNode[] = [
+  {
+    id: 'node-1',
+    title: 'Bridge: Trinomial Factorization Fundamentals',
+    subject: 'Mathematics',
+    phase: 'Bridge Prerequisite',
+    status: 'completed',
+    xpReward: 100,
+    durationMinutes: 12,
+    description: 'Master grouping and splitting the middle term with zero hesitation.',
+  },
+  {
+    id: 'node-2',
+    title: 'Core: Quadratic Roots & Discriminant Analysis',
+    subject: 'Mathematics',
+    phase: 'Core Mastery',
+    status: 'in_progress',
+    xpReward: 180,
+    durationMinutes: 18,
+    description: 'Graph parabolic trajectories, determine real vs complex roots, and apply Vieta formulas.',
+  },
+  {
+    id: 'node-3',
+    title: 'Physics Bridge: Vector Resolving in 2D Space',
+    subject: 'Physics',
+    phase: 'Bridge Prerequisite',
+    status: 'locked',
+    xpReward: 120,
+    durationMinutes: 15,
+    description: 'Separate horizontal constant motion from vertical freefall acceleration.',
+  },
+  {
+    id: 'node-4',
+    title: 'Advanced: Maximum Height, Range & Trajectory Equations',
+    subject: 'Physics',
+    phase: 'Advanced Application',
+    status: 'locked',
+    xpReward: 250,
+    durationMinutes: 25,
+    description: 'Derive projectile equations and solve non-horizontal ground projections.',
+  },
+  {
+    id: 'node-5',
+    title: 'Adaptive Exam Simulation: JEE & Olympiad Challenge',
+    subject: 'Mathematics',
+    phase: 'Exam Simulator',
+    status: 'locked',
+    xpReward: 350,
+    durationMinutes: 30,
+    description: 'Timed multi-concept speed drills with dynamic difficulty adjustment.',
+  },
+];
+
+export const ACTIVE_LESSON: LearningLesson = {
+  id: 'lesson-quadratics',
+  title: 'Mastering Quadratic Equations & Parabolas',
+  subject: 'Mathematics',
+  topic: 'Algebra & Functions',
+  summary: 'Unlock the geometry behind quadratic equations and discover why every thrown basketball traces a quadratic path.',
+  coreConcept: 'A quadratic equation is in the form ax² + bx + c = 0. The discriminant D = b² - 4ac governs the nature of roots: D > 0 gives two distinct real roots, D = 0 yields one coincident real root, and D < 0 reveals conjugate complex roots.',
+  realWorldAnalogy: 'Think of a fountain jet in a city square: the water climbs against gravity, decelerates at the vertex, and arches gracefully downward. The vertex is the optimal apex, and the splashdown points are the roots!',
+  interactiveFormula: {
+    latex: 'x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}',
+    variables: [
+      { symbol: 'a', label: 'Leading coefficient (curvature)', defaultVal: 1, unit: '', min: 1, max: 5 },
+      { symbol: 'b', label: 'Linear coefficient (shift)', defaultVal: -6, unit: '', min: -10, max: 10 },
+      { symbol: 'c', label: 'Constant (vertical intercept)', defaultVal: 8, unit: '', min: -15, max: 15 },
+    ],
+  },
+  flashcards: [
+    {
+      front: 'What does the Discriminant (D = b² - 4ac) signify if D = 0?',
+      back: 'The parabola touches the x-axis at exactly one point (two identical real roots: x = -b / 2a).',
+      hint: 'Think about when the square root term vanishes.',
+    },
+    {
+      front: 'What is Vieta\'s formula for the sum and product of roots (α, β)?',
+      back: 'Sum: α + β = -b/a, Product: α · β = c/a.',
+      hint: 'Relate the expanded polynomial (x - α)(x - β) to ax² + bx + c = 0.',
+    },
+    {
+      front: 'Where is the apex (vertex) of the parabola located?',
+      back: 'At x = -b / (2a), with vertex height y = -(b² - 4ac) / (4a).',
+      hint: 'It lies halfway between the symmetric roots.',
+    },
+  ],
+};
+
+export const INITIAL_AI_CHAT: AiChatMessage[] = [
+  {
+    id: 'msg-1',
+    sender: 'tutor',
+    text: "Hi Aryan! I'm Nova, your personalized AI Tutor 🚀. I noticed you nailed the quadratic roots question, but your middle-term splitting speed can be boosted by 30%. How would you like to explore today?",
+    timestamp: '10:30 AM',
+    quickReplies: [
+      'Show me a real-world analogy for Parabolas 🏀',
+      'Give me a rapid 3-step shortcut for factoring ⚡',
+      'Explain why the discriminant can be negative 🌀',
+      'Challenge me with an adaptive question 🎯',
+    ],
+  },
+];
+
+export const ADAPTIVE_QUIZ_POOL: AdaptiveQuizQuestion[] = [
+  // EASY
+  {
+    id: 'quiz-e1',
+    subject: 'Mathematics',
+    difficulty: 'Easy',
+    xp: 50,
+    question: 'What are the roots of the factored equation (x - 3)(x + 5) = 0?',
+    options: ['x = 3 and x = -5', 'x = -3 and x = 5', 'x = 3 and x = 5', 'x = -3 and x = -5'],
+    correctIndex: 0,
+    hint: 'Set each factor equal to zero: x - 3 = 0 and x + 5 = 0.',
+    remedyTip: 'Zero Product Property states that if A · B = 0, either A = 0 or B = 0.',
+  },
+  // MEDIUM
+  {
+    id: 'quiz-m1',
+    subject: 'Mathematics',
+    difficulty: 'Medium',
+    xp: 100,
+    question: 'For what value of k does the equation 2x² + kx + 8 = 0 have equal real roots?',
+    options: ['k = ±4', 'k = ±8', 'k = ±16', 'k = ±2'],
+    correctIndex: 1,
+    hint: 'For equal real roots, set the discriminant D = b² - 4ac = 0.',
+    remedyTip: 'D = k² - 4(2)(8) = k² - 64 = 0 => k = ±8.',
+  },
+  // HARD
+  {
+    id: 'quiz-h1',
+    subject: 'Mathematics',
+    difficulty: 'Hard',
+    xp: 200,
+    question: 'If α and β are roots of x² - px + q = 0, form the quadratic equation whose roots are α/β and β/α.',
+    options: [
+      'qx² - (p² - 2q)x + q = 0',
+      'px² - (q² - 2p)x + p = 0',
+      'qx² + (p² - 2q)x + q = 0',
+      'x² - (p² - 2q)x + 1 = 0',
+    ],
+    correctIndex: 0,
+    hint: 'Calculate the sum of new roots S = α/β + β/α = (α² + β²)/(αβ) and product P = 1.',
+    remedyTip: 'Sum = (p² - 2q)/q and Product = 1. Multiply throughout by q to get qx² - (p² - 2q)x + q = 0.',
+  },
+];
+
+export const BADGES: BadgeItem[] = [
+  { id: 'b-1', title: 'Math Virtuoso', description: 'Scored 85%+ in Mathematics Diagnostic', icon: '🏆', unlocked: true, unlockedAt: 'Today' },
+  { id: 'b-2', title: 'Logic Sentinel', description: 'Solved 10 logic riddles under 30s each', icon: '🧠', unlocked: true, unlockedAt: 'Yesterday' },
+  { id: 'b-3', title: '7-Day Streak', description: 'Consistent daily study habits', icon: '🔥', unlocked: true, unlockedAt: 'Today' },
+  { id: 'b-4', title: 'Prerequisite Healer', description: 'Repaired 3 foundational knowledge gaps', icon: '🩹', unlocked: false },
+  { id: 'b-5', title: 'Scholarship Elite', description: 'Unlocked 20%+ performance scholarship', icon: '💎', unlocked: false },
+];
+
+export const RECOMMENDATIONS: RecommendationCard[] = [
+  {
+    id: 'rec-1',
+    category: 'Gap Remedy',
+    title: 'Bridge Algebra Factorization (42% -> 80%)',
+    reason: 'Factorization prerequisite is currently throttling your Quadratic equations score.',
+    estimatedTime: '12 mins',
+    xpBonus: 150,
+    actionText: 'Start Bridge Lesson',
+    urgency: 'high',
+  },
+  {
+    id: 'rec-2',
+    category: 'Next Challenge',
+    title: 'Calculus Limits & Continuity Preview',
+    reason: 'Your 88% Math mastery unlocks early preview of high-weightage Class 12 concepts.',
+    estimatedTime: '20 mins',
+    xpBonus: 220,
+    actionText: 'Unlock Preview',
+    urgency: 'medium',
+  },
+  {
+    id: 'rec-3',
+    category: 'Revision Spaced',
+    title: 'Physics: Kinematics 2D Velocity Vectors',
+    reason: 'Optimal spaced repetition memory retention window expires in 6 hours.',
+    estimatedTime: '8 mins',
+    xpBonus: 90,
+    actionText: 'Quick 5-Question Drill',
+    urgency: 'normal',
+  },
+];
+
+export const CAREER_MATCHES: CareerMatch[] = [
+  {
+    id: 'career-ai-robotics',
+    title: 'Artificial Intelligence & Robotics Engineer',
+    matchScore: 96,
+    tagline: 'Design autonomous systems, computer vision models, and intelligent humanoid robots.',
+    category: 'Technology & Advanced Engineering',
+    academicScore: 92,
+    interestScore: 98,
+    aptitudeScore: 95,
+    whySuggested: {
+      academic: [
+        'Math score of 88% provides the linear algebra and calculus bedrock needed for neural network design.',
+        'Physics score of 82% aligns with sensor dynamics, kinematics, and embedded robotics.',
+        'Logical Reasoning at 91% exceeds the 95th percentile benchmark for algorithmic architecture.',
+      ],
+      interest: [
+        'Selected High Interest in Artificial Intelligence, Game Dev, and Tech Innovation.',
+        'Demonstrates active curiosity in space exploration and automated machine design.',
+      ],
+      aptitude: [
+        'Superior spatial reasoning and deductive logic patterns measured in the diagnostic assessment.',
+        'Speed index of 28s on algorithmic puzzles indicates natural computational fluency.',
+      ],
+    },
+    keyPathways: [
+      'B.Tech / B.S. in Computer Science / Artificial Intelligence / Robotics',
+      'M.S. or Dual Degree in Machine Learning & Autonomous Systems',
+      'Direct Research Fellowships at Premier AI Labs (DeepMind, OpenAI, ISRO)',
+    ],
+    entranceExamsRequired: ['JEE Advanced', 'JEE Main', 'BITSAT'],
+    topRoles: ['AI Research Scientist', 'Robotics Systems Architect', 'Autonomous Vehicle Engineer'],
+    avgStartingSalary: '₹18 - ₹35 LPA (India) / $130,000+ (Global)',
+    growthOutlook: '+38% explosive growth over the next 10 years (World Economic Forum)',
+  },
+  {
+    id: 'career-aerospace',
+    title: 'Aerospace & Astronautical Systems Designer',
+    matchScore: 91,
+    tagline: 'Pioneer next-generation launch vehicles, satellite constellations, and interplanetary probes.',
+    category: 'Space & Heavy Engineering',
+    academicScore: 89,
+    interestScore: 92,
+    aptitudeScore: 91,
+    whySuggested: {
+      academic: [
+        'Combined Physics + Math average of 85% is ideal for aerodynamics, thermodynamics, and orbital mechanics.',
+        'Strong spatial mechanics verified in projectile motion assessments.',
+      ],
+      interest: [
+        'Expressed genuine passion for Space & Astronomy and high-velocity exploration.',
+      ],
+      aptitude: [
+        'Strong 3D visualization and multi-variable problem-solving.',
+      ],
+    },
+    keyPathways: [
+      'B.Tech Aerospace Engineering (IIST, IIT Bombay, IIT Madras)',
+      'Direct absorption to ISRO / DRDO through IIST or GATE',
+      'International Graduate Aerospace Programs',
+    ],
+    entranceExamsRequired: ['JEE Advanced', 'JEE Main', 'IIST Admission Rank'],
+    topRoles: ['Propulsion Engineer', 'Orbital Trajectory Analyst', 'Avionics Architect'],
+    avgStartingSalary: '₹14 - ₹26 LPA (Govt & Defense/Space Startups)',
+    growthOutlook: '+24% steady expansion with commercial space privatization',
+  },
+  {
+    id: 'career-data-science',
+    title: 'Computational Data Scientist & Quantitative Analyst',
+    matchScore: 89,
+    tagline: 'Model macroeconomic trends, complex social systems, and high-frequency statistical algorithms.',
+    category: 'Mathematics & Data Science',
+    academicScore: 90,
+    interestScore: 85,
+    aptitudeScore: 94,
+    whySuggested: {
+      academic: [
+        'Mathematics score of 88% and Logical Reasoning at 91% form the gold standard for stochastic modeling.',
+      ],
+      interest: [
+        'Enjoys competitive problem solving and optimization challenges.',
+      ],
+      aptitude: [
+        'Exceptional pattern recognition speed and statistical intuition.',
+      ],
+    },
+    keyPathways: [
+      'B.Stat / B.Math from Indian Statistical Institute (ISI Kolkata/Bangalore)',
+      'B.Tech in Data Science & Mathematics Computing (IITs/BITS)',
+      'Chartered Quantitative Analyst (CQF) / Financial Engineering',
+    ],
+    entranceExamsRequired: ['ISI Admission Test', 'JEE Advanced', 'CMI Entrance'],
+    topRoles: ['Quantitative Researcher', 'Lead Data Scientist', 'Algorithmic Trader'],
+    avgStartingSalary: '₹22 - ₹45 LPA',
+    growthOutlook: '+31% sustained multi-industry demand',
+  },
+];
+
+export const ENTRANCE_EXAMS: EntranceExam[] = [
+  {
+    id: 'exam-jee-main',
+    name: 'JEE Main (Joint Entrance Examination)',
+    targetField: 'Engineering, Technology, Architecture across NITs, IIITs & CFTIs',
+    conductingBody: 'National Testing Agency (NTA)',
+    eligibility: 'Class 12 with Physics, Mathematics, and Chemistry/Tech subject with 75% aggregate.',
+    subjects: ['Mathematics (33.3%)', 'Physics (33.3%)', 'Chemistry (33.3%)'],
+    examPattern: 'Computer-Based Test (CBT), 90 questions (75 to attempt), 300 Marks, 3 Hours',
+    upcomingDate: 'Session 1: Jan 2027 | Session 2: Apr 2027',
+    readinessPercentage: 78,
+    officialSourceUrl: 'https://jeemain.nta.nic.in',
+    highWeightageTopics: ['Calculus & Coordinate Geometry', 'Electrodynamics & Modern Physics', 'Organic & Physical Chemistry'],
+  },
+  {
+    id: 'exam-jee-adv',
+    name: 'JEE Advanced',
+    targetField: 'Elite Bachelor Programs across 23 Indian Institutes of Technology (IITs)',
+    conductingBody: 'Rotating Zonal IIT',
+    eligibility: 'Top 2,50,000 rankers in JEE Main; Class 12 PCM.',
+    subjects: ['Advanced Physics', 'Advanced Chemistry', 'Comprehensive Mathematics'],
+    examPattern: 'Two mandatory papers (Paper 1 & Paper 2), 3 hours each, multi-correct, integer-type, negative marking',
+    upcomingDate: 'Late May 2027',
+    readinessPercentage: 71,
+    officialSourceUrl: 'https://jeeadv.ac.in',
+    highWeightageTopics: ['Rotational Mechanics & Wave Optics', 'Algebra & Complex Numbers', 'Thermodynamics & Equilibrium'],
+  },
+  {
+    id: 'exam-bitsat',
+    name: 'BITSAT',
+    targetField: 'Integrated First Degrees at BITS Pilani, Goa, and Hyderabad campuses',
+    conductingBody: 'BITS Pilani',
+    eligibility: 'Min 75% in PCM aggregate, min 60% in each subject in Class 12.',
+    subjects: ['Physics (30 Q)', 'Chemistry (30 Q)', 'Maths (40 Q)', 'English & Logic (30 Q)'],
+    examPattern: 'Speed-intensive CBT, 130 questions, 390 marks, bonus questions on early finish',
+    upcomingDate: 'May - June 2027',
+    readinessPercentage: 84,
+    officialSourceUrl: 'https://bitsadmission.com',
+    highWeightageTopics: ['Logical Reasoning & Analytical Ability', 'Speed Math Formulas', 'Formulaic Physics Application'],
+  },
+  {
+    id: 'exam-iiser',
+    name: 'IAT (IISER Aptitude Test)',
+    targetField: 'BS-MS Dual Degree in Pure Sciences & Frontier Research (IISERs & IISc)',
+    conductingBody: 'Joint Admissions Committee, IISER',
+    eligibility: 'Class 12 with at least three subjects among Biology, Chemistry, Mathematics, Physics.',
+    subjects: ['Biology (25%)', 'Chemistry (25%)', 'Mathematics (25%)', 'Physics (25%)'],
+    examPattern: '60 questions across all 4 sciences, 240 marks, 180 mins',
+    upcomingDate: 'June 2027',
+    readinessPercentage: 66,
+    officialSourceUrl: 'https://iiseradmission.ac.in',
+    highWeightageTopics: ['Conceptual Physics', 'Mathematical Analysis', 'Biological Fundamentals'],
+  },
+];
+
+export const SCHOLARSHIP_TIERS: ScholarshipTier[] = [
+  {
+    minScore: 90,
+    maxScore: 100,
+    discountPercentage: 30,
+    label: 'Apex Platinum Scholarship',
+    badgeText: '30% Performance Reward',
+    message: 'Outstanding Mastery! You are in the top tier of learners nationwide.',
+    perks: ['Max 30% instant subscription discount', 'Exclusive IITian 1-on-1 mentorship session', 'Early access to national mock Olympiads'],
+  },
+  {
+    minScore: 75,
+    maxScore: 89,
+    discountPercentage: 20,
+    label: 'Gold Scholar Reward',
+    badgeText: '20% Performance Reward',
+    message: 'Strong Academic Grit! Your consistent score unlocks significant savings.',
+    perks: ['20% continuous scholarship discount', 'Unlimited AI Tutor Socratic questions', 'Weekly performance diagnostics'],
+  },
+  {
+    minScore: 60,
+    maxScore: 74,
+    discountPercentage: 10,
+    label: 'Silver Momentum Reward',
+    badgeText: '10% Performance Reward',
+    message: 'Solid Progress! Keep practicing to leap into the 20% Gold tier.',
+    perks: ['10% discount on all plans', 'Smart knowledge gap remediation', 'Entrance exam readiness dashboard'],
+  },
+  {
+    minScore: 0,
+    maxScore: 59,
+    discountPercentage: 5,
+    label: 'Start-Strong Scholarship',
+    badgeText: '5% Inclusive Support',
+    message: 'Every champion starts somewhere. You receive inclusive financial support with zero penalties!',
+    perks: ['5% welcome assistance', 'Full access to foundational bridge modules', 'Dynamic upgrade as soon as scores rise'],
+  },
+];
+
+export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
+  {
+    id: 'plan-starter',
+    name: 'Explorer Tier',
+    basePriceMonthly: 0,
+    annualMultiplier: 0,
+    features: [
+      'Diagnostic test & baseline analysis',
+      'Daily 5 practice questions',
+      'Standard career overview',
+      'Community forum access',
+    ],
+  },
+  {
+    id: 'plan-scholar',
+    name: 'Pro Scholar',
+    basePriceMonthly: 899,
+    annualMultiplier: 10, // 10 months price for annual (2 months free)
+    isPopular: true,
+    features: [
+      'Full Adaptive Learning & Gap Detection Engine',
+      'Unlimited 24/7 Nova AI Socratic Tutor',
+      'Dynamic Career Guidance with "Why Suggested" analytics',
+      'Complete Entrance Exam syllabus & readiness tracking',
+      'Continuous Performance-Based Scholarship upgrades',
+    ],
+  },
+  {
+    id: 'plan-mastery',
+    name: 'Mastery Elite + Mentor',
+    basePriceMonthly: 1699,
+    annualMultiplier: 10,
+    features: [
+      'Everything in Pro Scholar',
+      'Bi-weekly 1-on-1 Live Mentorship sessions with Top Rankers',
+      'Personalized college application & counseling review',
+      'Customized printed study kit & flashcard sets',
+      'VIP Priority doubt clearing in under 5 minutes',
+    ],
+  },
+];

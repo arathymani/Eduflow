@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased min-h-screen overflow-x-hidden transition-colors duration-300;
+  }
+}
+
+/* =========================================================================
+   STUDENT THEME ENGINE
+   ========================================================================= */
+
+/* 1. Cosmic Nebula (Default Dark) */
+:root,
+[data-theme="cosmic"] {
+  --app-bg: #090d16;
+  --app-card: rgba(19, 27, 44, 0.75);
+  --app-card-glow: rgba(26, 37, 60, 0.85);
+  --app-border: rgba(139, 92, 246, 0.25);
+  --app-border-subtle: rgba(255, 255, 255, 0.08);
+  --app-text: #f8fafc;
+  --app-muted: #94a3b8;
+  --app-glow: rgba(139, 92, 246, 0.25);
+}
+
+/* 2. Daylight Scholar (Crisp Light Mode for Day Study) */
+[data-theme="daylight"] {
+  --app-bg: #f8fafc;
+  --app-card: rgba(255, 255, 255, 0.95);
+  --app-card-glow: rgba(255, 255, 255, 1);
+  --app-border: rgba(99, 102, 241, 0.3);
+  --app-border-subtle: rgba(203, 213, 225, 0.8);
+  --app-text: #0f172a;
+  --app-muted: #475569;
+  --app-glow: rgba(99, 102, 241, 0.12);
+}
+
+[data-theme="daylight"] body,
+[data-theme="daylight"] .theme-container {
+  background-color: var(--app-bg) !important;
+  color: var(--app-text) !important;
+}
+
+[data-theme="daylight"] .glass-panel {
+  background: var(--app-card) !important;
+  border-color: var(--app-border-subtle) !important;
+  color: var(--app-text) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="daylight"] .glass-panel-glow {
+  background: var(--app-card-glow) !important;
+  border-color: var(--app-border) !important;
+  color: var(--app-text) !important;
+  box-shadow: 0 8px 30px -4px var(--app-glow) !important;
+}
+
+[data-theme="daylight"] .text-white {
+  color: #0f172a !important;
+}
+
+/* Keep text white inside buttons and dark chips */
+[data-theme="daylight"] button[class*="bg-brand-"],
+[data-theme="daylight"] button[class*="bg-emerald-"],
+[data-theme="daylight"] button[class*="bg-gradient-"],
+[data-theme="daylight"] button[class*="bg-amber-"],
+[data-theme="daylight"] button[class*="bg-rose-"],
+[data-theme="daylight"] button[class*="bg-indigo-"],
+[data-theme="daylight"] [class*="bg-brand-600"] *,
+[data-theme="daylight"] [class*="bg-emerald-600"] *,
+[data-theme="daylight"] [class*="bg-gradient-"] *,
+[data-theme="daylight"] .text-white-forced {
+  color: #ffffff !important;
+}
+
+[data-theme="daylight"] .text-slate-300,
+[data-theme="daylight"] .text-slate-200,
+[data-theme="daylight"] .text-slate-100 {
+  color: #334155 !important;
+}
+
+[data-theme="daylight"] .text-slate-400 {
+  color: #64748b !important;
+}
+
+[data-theme="daylight"] .bg-slate-900,
+[data-theme="daylight"] .bg-slate-900\/90,
+[data-theme="daylight"] .bg-slate-900\/80,
+[data-theme="daylight"] .bg-slate-900\/60,
+[data-theme="daylight"] .bg-slate-950 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="daylight"] .bg-slate-800,
+[data-theme="daylight"] .bg-slate-800\/90,
+[data-theme="daylight"] .bg-slate-800\/80,
+[data-theme="daylight"] .bg-slate-800\/70,
+[data-theme="daylight"] .bg-slate-800\/60,
+[data-theme="daylight"] .bg-slate-800\/40 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="daylight"] .border-slate-800,
+[data-theme="daylight"] .border-slate-700,
+[data-theme="daylight"] .border-slate-700\/80,
+[data-theme="daylight"] .border-slate-700\/60,
+[data-theme="daylight"] .border-slate-700\/50 {
+  border-color: #cbd5e1 !important;
+}
+
+/* 3. Emerald Zen Theme */
+[data-theme="emerald"] {
+  --app-bg: #03140e;
+  --app-card: rgba(8, 38, 27, 0.8);
+  --app-card-glow: rgba(11, 48, 35, 0.9);
+  --app-border: rgba(16, 185, 129, 0.35);
+  --app-border-subtle: rgba(16, 185, 129, 0.12);
+  --app-text: #f0fdf4;
+  --app-muted: #a7f3d0;
+  --app-glow: rgba(16, 185, 129, 0.25);
+}
+
+[data-theme="emerald"] body,
+[data-theme="emerald"] .theme-container {
+  background-color: var(--app-bg) !important;
+}
+
+[data-theme="emerald"] .glass-panel {
+  background: var(--app-card) !important;
+  border-color: var(--app-border-subtle) !important;
+}
+
+[data-theme="emerald"] .glass-panel-glow {
+  background: var(--app-card-glow) !important;
+  border-color: var(--app-border) !important;
+  box-shadow: 0 8px 32px 0 var(--app-glow) !important;
+}
+
+/* 4. Cyber Arcade Theme */
+[data-theme="cyber"] {
+  --app-bg: #090717;
+  --app-card: rgba(22, 13, 44, 0.85);
+  --app-card-glow: rgba(30, 18, 59, 0.9);
+  --app-border: rgba(6, 182, 212, 0.4);
+  --app-border-subtle: rgba(244, 63, 94, 0.25);
+  --app-text: #fdf4ff;
+  --app-muted: #c084fc;
+  --app-glow: rgba(6, 182, 212, 0.3);
+}
+
+[data-theme="cyber"] body,
+[data-theme="cyber"] .theme-container {
+  background-color: var(--app-bg) !important;
+}
+
+[data-theme="cyber"] .glass-panel {
+  background: var(--app-card) !important;
+  border-color: var(--app-border-subtle) !important;
+}
+
+[data-theme="cyber"] .glass-panel-glow {
+  background: var(--app-card-glow) !important;
+  border-color: var(--app-border) !important;
+  box-shadow: 0 8px 32px 0 var(--app-glow) !important;
+}
+
+/* 5. Sunset Horizon Theme */
+[data-theme="sunset"] {
+  --app-bg: #170b10;
+  --app-card: rgba(38, 16, 26, 0.85);
+  --app-card-glow: rgba(50, 20, 34, 0.9);
+  --app-border: rgba(244, 63, 94, 0.35);
+  --app-border-subtle: rgba(251, 146, 60, 0.2);
+  --app-text: #fff1f2;
+  --app-muted: #fda4af;
+  --app-glow: rgba(244, 63, 94, 0.25);
+}
+
+[data-theme="sunset"] body,
+[data-theme="sunset"] .theme-container {
+  background-color: var(--app-bg) !important;
+}
+
+[data-theme="sunset"] .glass-panel {
+  background: var(--app-card) !important;
+  border-color: var(--app-border-subtle) !important;
+}
+
+[data-theme="sunset"] .glass-panel-glow {
+  background: var(--app-card-glow) !important;
+  border-color: var(--app-border) !important;
+  box-shadow: 0 8px 32px 0 var(--app-glow) !important;
+}
+
+/* Base Glass Panels */
+.glass-panel {
+  background: var(--app-card, rgba(30, 41, 59, 0.7));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--app-border-subtle, rgba(255, 255, 255, 0.1));
+}
+
+.glass-panel-glow {
+  background: var(--app-card-glow, rgba(30, 41, 59, 0.85));
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--app-border, rgba(139, 92, 246, 0.3));
+  box-shadow: 0 8px 32px 0 var(--app-glow, rgba(139, 92, 246, 0.15));
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

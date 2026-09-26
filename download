@@ -1,0 +1,2 @@
+DATABASE_URL="postgresql+psycopg2://authuser:authpass@localhost:5432/edunova"
+CORS_ORIGINS="*"
